@@ -4,6 +4,12 @@ FROM jlesage/baseimage-gui:debian-10
 # Set the name of the application.
 ENV APP_NAME="StardewValley"
 
+# replace mirrors
+RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list && \
+    sed -i 's/security.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list && \
+    echo "deb https://mirrors.tuna.tsinghua.edu.cn/debian/ buster main contrib non-free" > /etc/apt/sources.list.d/tsinghua.list && \
+    echo "deb https://mirrors.tuna.tsinghua.edu.cn/debian-security buster/updates main contrib non-free" >> /etc/apt/sources.list.d/tsinghua.list
+
 RUN apt-get update
 RUN apt-get install -y wget unzip tar strace mono-complete xterm gettext-base jq netcat procps 
 #RUN APP_ICON_URL=https://stardewcommunitywiki.com/mediawiki/images/4/48/Fiddlehead_Fern.png && \
