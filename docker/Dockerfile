@@ -15,7 +15,6 @@ RUN apt-get install -y wget unzip tar strace mono-complete xterm gettext-base jq
 #RUN APP_ICON_URL=https://stardewcommunitywiki.com/mediawiki/images/4/48/Fiddlehead_Fern.png && \
 #    install_app_icon.sh "$APP_ICON_URL"
 
-RUN apt-get install -y lib32gcc-s1 lib32stdc++6 libc6-i386
 
 RUN mkdir -p /data/Stardew && \
     mkdir -p /data/nexus && \
