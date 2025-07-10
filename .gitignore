@@ -6,3 +6,4 @@
 
 # large files
 docker/data/*
+!docker/data/
