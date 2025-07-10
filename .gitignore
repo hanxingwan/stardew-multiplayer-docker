@@ -1,5 +1,8 @@
-valley_saves
-mods
+# local saves
+/valley_saves
+
+# local mods
+/mods
 
 # large files
 docker/data/*
