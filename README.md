@@ -2,12 +2,15 @@
 
 该项目旨在尽可能简单地自动启动星露谷物语多人游戏服务器。
 
-## 附注
 
- - 更新到最新版本需要重新构建：`docker-compose build --no-cache` 
- - 虽然我正在尝试发布更新，但我没有时间进行测试，所以我建议您分叉并自行修复问题。
- - Ansible和Terraform将不再得到支持
- - 感谢Novex的精彩配置脚本和jlesage的天才基础镜像，现在看起来好多了
+
+## 更新记录
+* 更新 dockerfile 支持读取本地的文件去构建镜像（下载太慢的问题,可以手动下载好放在docker/data文件下 分别为:dotnet.tar.gz, nexus.zip 和 Stardew_1.6.15.tar.gz）
+* 更新Alwayer on server 版本 （出货问题）
+* 更新chatcommands
+* 更新环境变量不可读的问题
+* 更新镜像配置挂载（现在会暴露出mods文件夹）
+
 
 ## 设置
 
@@ -89,9 +92,6 @@ ansible -i <your_inventori> playbook.yml
 我建议使用至少四个逻辑CPU和4GB内存的VPS/机器，否则会出现严重的卡顿。我认为，对于两到四个玩家，可以接受的最低配置是两个逻辑CPU和1GB内存。
 
 
-### update 
-更新 dockerfile 支持读取本地的文件去构建镜像（下载太慢的问题,可以手动下载好放在docker/data文件下 分别为:dotnet.tar.gz, nexus.zip 和 Stardew_1.6.15.tar.gz）
-更新Alwayer on server 版本 （出货问题）
-更新chatcommands
-更新环境变量不可读的问题
-更新镜像配置挂载（现在会暴露出mods文件夹）
+## 感谢
+ - 感谢Novex的精彩配置脚本和jlesage的天才基础镜像，现在看起来好多了
+ - 感谢 printfuck 的配置文件
