@@ -1,1 +1,5 @@
 valley_saves
+mods
+
+# large files
+docker/data/*

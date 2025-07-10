@@ -1,10 +1,9 @@
 {
-  "Name": "Always On Server",
-  "Author": "funny-snek & Zuberii",
-  "Version": "1.20.3-unofficial.4-mikkoperkele",
-  "Description": "A Headless server mod.",
-  "UniqueID": "mikko.Always_On_Server",
-  "EntryDll": "Always On Server.dll",
-  "MinimumApiVersion": "4.0.0",
-  "UpdateKeys": [ "Nexus:2677" ]
-}
+    "Name": "Stardew Unattended Server Mod_fixed",
+    "Author": "starry",
+    "Version": "1.0.5",
+    "Description": "An Unattended Server Mod, fixed shipping menu bug",
+    "UniqueID": "starry.stardewunattendedserverfixed",
+    "EntryDll": "StardewUnattendedServer.dll",
+    "MinimumApiVersion": "4.1.7"
+  }

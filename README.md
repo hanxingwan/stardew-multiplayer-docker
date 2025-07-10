@@ -1,72 +1,97 @@
-# Stardew Valley Multiplayer Docker Compose
+# 星露谷物语多人游戏Docker Compose
 
-This project aims to autostart a Stardew Valley Multiplayer Server as easy as possible.
+该项目旨在尽可能简单地自动启动星露谷物语多人游戏服务器。
 
-## Important
+## 附注
 
- - Updating to most recent version requires a rebuild: `docker-compose build --no-cache` 
- - Although I'm trying to put out updates, I don't have the time for testing, so I recommend forking and fixing things on your own.
-   - You will always get the most recent version with the fork at https://github.com/norimicry/stardew-multiplayer-docker
-     
- - Ansible and Terraform will not be supported anymore
+ - 更新到最新版本需要重新构建：`docker-compose build --no-cache` 
+ - 虽然我正在尝试发布更新，但我没有时间进行测试，所以我建议您分叉并自行修复问题。
+ - Ansible和Terraform将不再得到支持
+ - 感谢Novex的精彩配置脚本和jlesage的天才基础镜像，现在看起来好多了
 
-## Setup
+## 设置
 
 ### Docker-Compose
  
 ```
 git clone https://github.com/printfuck/stardew-multiplayer-docker
 
-docker-compose up
+docker compose up
 ```
 
-## Game Setup
+### 后台运行
+```
+docker compose up -d
+```
+### Ansible !已弃用!
 
-Intially you have to create or load a game once via VNC or Web interface. After that the Autoload Mod jumps into the previously loaded savegame everytime you restart or rebuild the container. The AutoLoad Mod config file is by default mounted as a volume, since it keeps the state of the ongoing SaveGame, but you can also copy your existing SaveGame to the `Saves` volume and define the SaveGame's name in the environment variables.
+创建一个包含您的主机的清单文件
+
+```
+ansible -i <your_inventori> playbook.yml
+```
+
+### Terraform（使用Hetzner Cloud）!已弃用!
+
+在`terraform/vars.auto.tfvars`中输入您的API令牌，并根据您的喜好修改`main.tf`中的资源部分，然后运行以下脚本：
+
+```
+./terra.sh
+```
+
+## 游戏设置
+
+最初，您必须通过VNC或Web界面创建或加载游戏。之后，每次重新启动或重建容器时，自动加载模块都会跳转到先前加载的保存游戏。自动加载模块的配置文件默认被挂载为卷，因为它保留了正在进行的保存游戏的状态，但您也可以将现有的保存游戏复制到`Saves`卷中，并在环境变量中定义保存游戏的名称。
 
 ### VNC
 
-Use a vnc client like `TightVNC` on Windows or plain `vncviewer` on any Linux distribution to connect to the server. You can modify the VNC Port and IP address and Password in the `docker-compose.yml` file like this:
+使用Windows上的`TightVNC`或任何Linux发行版上的`vncviewer`等VNC客户端连接到服务器。您可以在`docker-compose.yml`文件中修改VNC端口和IP地址以及密码，如下所示：
 
-Localhost:
+本地主机：
 ```
-   # Server is only reachable on localhost on port 2342...
+   # 服务器只能在本地主机的2342端口上访问...
    ports:
      - 127.0.0.1:2342:5900
-   # ... with the password "insecure"
+   # ...密码为"insecure"
    environment:
      - VNCPASS=insecure
 ```
 
-### Web Interface 
+### Web界面 
 
-On port 5800 inside the container is a web interface. This is a bit easier and more accessible than just the VNC interface. Although you will be asked for the vnc password, I wouldn't recommend exposing the port to the outside world.
+容器内的端口5800上有一个Web界面。这比仅有VNC界面更容易访问。虽然您将被要求输入VNC密码，但我不建议将端口暴露给外部世界。
 
 ![img](https://store.eris.cc/uploads/859865e1ab5b23fb223923d9a7e4806b.PNG)
 
-## How it works
+## 工作原理
 
-The game will be pulled from my servers (I'll assume you already own the game - since you're looking for a multiplayer - so please don't rip it from there) and the modloader (SMAPI) will be pulled from Github when building the container. You can control the mods's settings with environment variables in the `docker-compose.yml` file.
+游戏将从我的服务器上拉取（我假设您已经拥有游戏 - 因为您正在寻找多人游戏 - 所以请不要从那里剥离它），并且在构建容器时，将从Github上拉取模组加载器（SMAPI）。您可以使用`docker-compose.yml`文件中的环境变量来控制模组的设置。
 
-## Used Mods
+## 使用的模组
 
-* [AutoLoadGame](https://www.nexusmods.com/stardewvalley/mods/2509)
-* [Always On](https://community.playstarbound.com/threads/updating-mods-for-stardew-valley-1-4.156000/page-20#post-3353880)
-* [Unlimited Players](https://www.nexusmods.com/stardewvalley/mods/2213)
-* some more ...
+* [自动加载游戏](https://www.nexusmods.com/stardewvalley/mods/2509)
+* [始终在线](https://community.playstarbound.com/threads/updating-mods-for-stardew-valley-1-4.156000/page-20#post-3353880)
+* [无限玩家](https://www.nexusmods.com/stardewvalley/mods/2213)
+* 还有一些...
 
-## Troubleshooting
+## 故障排除
 
-### Error Messages in Console
+### 控制台中的错误消息
 
-Usually you should be able to ignore any message there. If the game doesn't start or any errors appear, you should look for messages like "cannot open display", which would most likely indicate permission errors.
-
-The error log of the SMAPI Loader can be found inside the container at `/config/xdg/config/StardewValley/ErrorLogs/SMAPI-latest.txt`.
+通常，您应该能够忽略那里的任何消息。如果游戏无法启动或出现任何错误，您应该寻找类似“无法打开显示”的消息，这很可能表明权限错误。
 
 ### VNC
 
-Access the game via VNC to initially load or start a pregenerated savegame. You can control the Server from there or edit the config.json files in the configs folder.
+通过VNC访问游戏，以便最初加载或启动预生成的保存游戏。您可以从那里控制服务器或编辑配置文件夹中的config.json文件。
 
-### Performance
+### 性能
 
-I'd recomend a VPS/Machine with at least four logical CPUs and 4GB Ram, otherwise there will be horrible lags. The minimum configuration I'd consider playable with two to four players would be two logical CPUs and 1GB of Ram.
+我建议使用至少四个逻辑CPU和4GB内存的VPS/机器，否则会出现严重的卡顿。我认为，对于两到四个玩家，可以接受的最低配置是两个逻辑CPU和1GB内存。
+
+
+### update 
+更新 dockerfile 支持读取本地的文件去构建镜像（下载太慢的问题,可以手动下载好放在docker/data文件下 分别为:dotnet.tar.gz, nexus.zip 和 Stardew_1.6.15.tar.gz）
+更新Alwayer on server 版本 （出货问题）
+更新chatcommands
+更新环境变量不可读的问题
+更新镜像配置挂载（现在会暴露出mods文件夹）

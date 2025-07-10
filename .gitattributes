@@ -1,1 +1,4 @@
-* binary
+# * binary
+# docker/data/Stardew_1.6.15.tar.gz filter=lfs diff=lfs merge=lfs -text
+# docker/data/dotnet.tar.gz filter=lfs diff=lfs merge=lfs -text
+# docker/data/nexus.zip filter=lfs diff=lfs merge=lfs -text

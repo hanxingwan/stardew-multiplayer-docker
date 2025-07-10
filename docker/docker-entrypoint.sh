@@ -1,6 +1,13 @@
 #!/bin/bash
 export HOME=/config
 
+# if mount mods is empty, try load default mods
+if [ -z "$(ls -A '/data/Stardew/Stardew Valley/Mods')" ] && [ -n "$(ls -A '/data/default-mods')" ]; then
+  echo "Mods Dir is Empty, try load default mods..."
+  cp -a /data/default-mods/. '/data/Stardew/Stardew Valley/Mods/'
+  rm -rf /data/default-mods/*
+fi
+
 for modPath in /data/Stardew/Stardew\ Valley/Mods/*/
 do
   mod=$(basename "$modPath")
@@ -38,4 +45,4 @@ sed -i -e 's/env TERM=xterm $LAUNCHER "$@"$/env SHELL=\/bin\/bash TERM=xterm xte
 
 bash -c "/data/Stardew/Stardew\ Valley/StardewValley"
 
-sleep 233333333333333
+sleep infinity
