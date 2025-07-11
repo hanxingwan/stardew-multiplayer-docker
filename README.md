@@ -5,7 +5,7 @@
 
 
 ## 更新记录
-* 更新 dockerfile 支持读取本地的文件去构建镜像（下载太慢的问题,可以手动下载好放在docker/data文件下 分别为:dotnet.tar.gz, nexus.zip 和 Stardew_1.6.15.tar.gz）
+* 更新 dockerfile 支持读取本地的文件去构建镜像（下载太慢的问题,可以手动下载好放在docker/install_packages文件下 分别为:dotnet.tar.gz, nexus.zip 和 Stardew_1.6.15.tar.gz）
 * 更新Alwayer on server 版本 （出货问题）
 * 更新chatcommands
 * 更新环境变量不可读的问题
