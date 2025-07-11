@@ -42,7 +42,7 @@ RUN if [ ! -f "/data/nexus.zip" ]; then \
     fi && \
     unzip /data/nexus.zip -d /data/nexus/ && \
     /bin/bash -c "SMAPI_NO_TERMINAL=true SMAPI_USE_CURRENT_SHELL=true echo -e \"2\n\n\" | /data/nexus/SMAPI\ 4.1.10\ installer/internal/linux/SMAPI.Installer --install --game-path \"/data/Stardew/Stardew Valley\"" || :
-# Add Mods & Scripts
+        # Add Mods & Scripts
 COPY ["mods/", "/data/default-mods/"]
 COPY scripts/ /opt/
 
@@ -51,8 +51,13 @@ RUN chmod +x /data/Stardew/Stardew\ Valley/StardewValley && \
     chown -R 1000:1000 /data/Stardew && \
     chmod +x /opt/*.sh
 
-RUN mkdir /etc/services.d/utils && touch /etc/services.d/app/utils.dep
-COPY run /etc/services.d/utils/run 
-RUN chmod +x /etc/services.d/utils/run 
+# 新增：添加 root 权限的初始化脚本
+RUN mkdir -p /etc/cont-init.d
+RUN cp /opt/fixed-mod-permission.sh /etc/cont-init.d/ && \
+    chmod +x /etc/cont-init.d/fixed-mod-permission.sh
+
+# RUN mkdir /etc/services.d/utils && touch /etc/services.d/app/utils.dep
+# COPY run /etc/services.d/utils/run 
+# RUN chmod +x /etc/services.d/utils/run 
 
 COPY docker-entrypoint.sh /startapp.sh

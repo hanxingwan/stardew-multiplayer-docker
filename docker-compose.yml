@@ -130,4 +130,4 @@ services:
     # 数据卷挂载（持久化存储）
     volumes:
       - ./valley_saves:/config/xdg/config/StardewValley/Saves  # 游戏存档目录（主机./valley_saves映射到容器内存档路径）
-      - ./mods:/data/Stardew/Stardew Valley/Mods  # AutoLoadGame模组配置文件（预配置或自定义）
+      - ./valley_mods:/data/Stardew/Stardew Valley/Mods  # AutoLoadGame模组配置文件（预配置或自定义）

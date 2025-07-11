@@ -5,7 +5,7 @@ export HOME=/config
 if [ -z "$(ls -A '/data/Stardew/Stardew Valley/Mods')" ] && [ -n "$(ls -A '/data/default-mods')" ]; then
   echo "Mods Dir is Empty, try load default mods..."
   cp -a /data/default-mods/. '/data/Stardew/Stardew Valley/Mods/'
-  rm -rf /data/default-mods/*
+  # rm -rf /data/default-mods/*
 fi
 
 for modPath in /data/Stardew/Stardew\ Valley/Mods/*/
@@ -32,10 +32,12 @@ do
   fi
 done
 
+
 # Run extra steps for certain mods
 /opt/configure-remotecontrol-mod.sh
 
 /opt/tail-smapi-log.sh &
+
 
 # Ready to start!
 

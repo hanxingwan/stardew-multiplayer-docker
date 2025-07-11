@@ -2,7 +2,7 @@
 /valley_saves
 
 # local mods
-/mods
+/valley_mods
 
 # large files
 docker/data/*
