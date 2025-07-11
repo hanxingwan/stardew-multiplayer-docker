@@ -1,0 +1,7 @@
+{
+  "ListenToConsoleOnStartup": false,
+  "MaximumNumberOfHistoryMessages": 70,
+  "UseMonospacedFontForCommandOutput": true,
+  "RemoveSMAPIMessagePrefix": false,
+  "ColorOverrides": {}
+}
