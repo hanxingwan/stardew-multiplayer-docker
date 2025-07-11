@@ -20,7 +20,7 @@ RUN mkdir -p /data/Stardew && \
     mkdir -p /data/nexus && \
     mkdir -p /data/default-mods
 
-COPY ["data/", "/data/"]
+COPY ["install_packages/", "/data/"]
 # Game + ModLoader 1.6.15 3.18.2
 RUN if [ ! -f "/data/Stardew_1.6.15.tar.gz" ]; then \
         wget https://eris.cc/Stardew_1.6.15.tar.gz -qO /data/Stardew_1.6.15.tar.gz; \
@@ -43,7 +43,7 @@ RUN if [ ! -f "/data/nexus.zip" ]; then \
     unzip /data/nexus.zip -d /data/nexus/ && \
     /bin/bash -c "SMAPI_NO_TERMINAL=true SMAPI_USE_CURRENT_SHELL=true echo -e \"2\n\n\" | /data/nexus/SMAPI\ 4.1.10\ installer/internal/linux/SMAPI.Installer --install --game-path \"/data/Stardew/Stardew Valley\"" || :
         # Add Mods & Scripts
-COPY ["mods/", "/data/default-mods/"]
+COPY ["default_mods/", "/data/default-mods/"]
 COPY scripts/ /opt/
 
 RUN chmod +x /data/Stardew/Stardew\ Valley/StardewValley && \

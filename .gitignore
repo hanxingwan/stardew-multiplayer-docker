@@ -5,5 +5,5 @@
 /valley_mods
 
 # large files
-docker/data/*
-!docker/data/
+docker/install_packages/*
+!docker/install_packages/
