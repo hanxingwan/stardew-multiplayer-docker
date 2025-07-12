@@ -1,8 +1,8 @@
 {
     "Name": "Stardew Unattended Server Mod",
     "Author": "the_ghost99",
-    "Version": "1.0.5",
-    "Description": "An Unattended Server Mod",
+    "Version": "1.0.6",
+    "Description": "An Unattended Server Mod (fixed level up and ship issues)",
     "UniqueID": "the_ghost99.stardewunattendedserver",
     "EntryDll": "StardewUnattendedServer.dll",
     "MinimumApiVersion": "4.1.7",
