@@ -48,17 +48,7 @@ ansible -i <your_inventori> playbook.yml
 
 ### VNC
 
-使用Windows上的`TightVNC`或任何Linux发行版上的`vncviewer`等VNC客户端连接到服务器。您可以在`docker-compose.yml`文件中修改VNC端口和IP地址以及密码，如下所示：
-
-本地主机：
-```
-   # 服务器只能在本地主机的2342端口上访问...
-   ports:
-     - 127.0.0.1:2342:5900
-   # ...密码为"insecure"
-   environment:
-     - VNCPASS=insecure
-```
+使用Windows上的`TightVNC`或任何Linux发行版上的`vncviewer`等VNC客户端连接到服务器。您可以在`.env`文件中修改VNC端口和IP地址以及密码等等。
 
 ### Web界面 
 
