@@ -1,6 +1,8 @@
 # Pull base image.
 FROM jlesage/baseimage-gui:debian-10
 
+ARG STEAM_USER
+ARG STEAM_PWD
 # Set the name of the application.
 ENV APP_NAME="StardewValley"
 
@@ -10,8 +12,9 @@ RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list && \
     echo "deb https://mirrors.tuna.tsinghua.edu.cn/debian/ buster main contrib non-free" > /etc/apt/sources.list.d/tsinghua.list && \
     echo "deb https://mirrors.tuna.tsinghua.edu.cn/debian-security buster/updates main contrib non-free" >> /etc/apt/sources.list.d/tsinghua.list
 
+RUN dpkg --add-architecture i386
 RUN apt-get update
-RUN apt-get install -y wget unzip tar strace mono-complete xterm gettext-base jq netcat procps 
+RUN apt-get install -y wget unzip tar strace mono-complete xterm gettext-base jq netcat procps lib32stdc++6 lib32gcc1
 #RUN APP_ICON_URL=https://stardewcommunitywiki.com/mediawiki/images/4/48/Fiddlehead_Fern.png && \
 #    install_app_icon.sh "$APP_ICON_URL"
 
@@ -55,6 +58,8 @@ RUN chmod +x /data/Stardew/Stardew\ Valley/StardewValley && \
 RUN mkdir -p /etc/cont-init.d
 RUN cp /opt/fixed-mod-permission.sh /etc/cont-init.d/ && \
     chmod +x /etc/cont-init.d/fixed-mod-permission.sh
+RUN cp /opt/steam_download.sh /etc/cont-init.d/ && \
+    chmod +x /etc/cont-init.d/steam_download.sh
 
 # RUN mkdir /etc/services.d/utils && touch /etc/services.d/app/utils.dep
 # COPY run /etc/services.d/utils/run 

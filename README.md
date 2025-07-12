@@ -25,22 +25,11 @@ docker compose up
 ### 后台运行
 ```
 docker compose up -d
+如果想完全重构该镜像先使用down清除内容
+sudo docker compose down -v --rmi all
 ```
-### Ansible !已弃用!
+### Steam Download game(test)
 
-创建一个包含您的主机的清单文件
-
-```
-ansible -i <your_inventori> playbook.yml
-```
-
-### Terraform（使用Hetzner Cloud）!已弃用!
-
-在`terraform/vars.auto.tfvars`中输入您的API令牌，并根据您的喜好修改`main.tf`中的资源部分，然后运行以下脚本：
-
-```
-./terra.sh
-```
 
 ## 游戏设置
 

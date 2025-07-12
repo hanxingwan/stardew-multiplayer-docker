@@ -7,6 +7,8 @@ services:
       - VNC_PASSWORD=${VNC_PASSWORD:-nyanyanya}  # VNC 连接密码
       - DISPLAY_HEIGHT=${DISPLAY_HEIGHT:-900}      # 显示窗口高度
       - DISPLAY_WIDTH=${DISPLAY_HEIGHT:-1200}      # 显示窗口宽度
+      - STEAM_USER=${STEAM_USER:-}
+      - STEAM_PWD=${STEAM_PWD:-}
 
       ## Always On Server mod（服务器常显模组，核心模组）
       # 控制服务器在无人连接时仍保持运行，自动处理游戏内事件
