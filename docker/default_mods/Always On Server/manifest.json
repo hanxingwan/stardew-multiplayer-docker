@@ -1,10 +1,10 @@
 {
-    "Name": "Stardew Unattended Server Mod",
-    "Author": "the_ghost99",
-    "Version": "1.0.6",
-    "Description": "An Unattended Server Mod (fixed level up and ship issues)",
-    "UniqueID": "the_ghost99.stardewunattendedserver",
-    "EntryDll": "StardewUnattendedServer.dll",
-    "MinimumApiVersion": "4.1.7",
-    "UpdateKeys": [ "Nexus:29423" ]
-  }
+  "Name": "Always On Server",
+  "Author": "funny-snek & Zuberii",
+  "Version": "1.20.3-unofficial.5-mikkoperkele",
+  "Description": "A Headless server mod.",
+  "UniqueID": "mikko.Always_On_Server",
+  "EntryDll": "Always On Server.dll",
+  "MinimumApiVersion": "4.0.0",
+  "UpdateKeys": [ "Nexus:2677" ]
+}
