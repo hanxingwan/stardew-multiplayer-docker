@@ -1,50 +1,47 @@
 #!/bin/bash
 export HOME=/config
 
-# if mount mods is empty, try load default mods
-if [ -z "$(ls -A '/data/Stardew/Stardew Valley/Mods')" ] && [ -n "$(ls -A '/data/default-mods')" ]; then
-  echo "Mods Dir is Empty, try load default mods..."
-  cp -a /data/default-mods/. '/data/Stardew/Stardew Valley/Mods/'
-  # rm -rf /data/default-mods/*
-fi
-
-for modPath in /data/Stardew/Stardew\ Valley/Mods/*/
-do
-  mod=$(basename "$modPath")
-
-  # Normalize mod name ot uppercase and only characters, eg. "Always On Server" => ENABLE_ALWAYSONSERVER_MOD
-  var="ENABLE_$(echo "${mod^^}" | tr -cd '[A-Z]')_MOD"
-
-  # Remove the mod if it's not enabled
-  if [ "${!var}" != "true" ]; then
-    echo "Removing ${modPath} (${var}=${!var})"
-    rm -rf "$modPath"
-    continue
-  fi
-
-  if [ -f "${modPath}/config.json.template" ]; then
-    echo "Configuring ${modPath}config.json"
-
-    # Seed the config.json only if one isn't manually mounted in (or is empty)
-    if [ "$(cat "${modPath}config.json" 2> /dev/null)" == "" ]; then
-      envsubst < "${modPath}config.json.template" > "${modPath}config.json"
-    fi
-  fi
-done
+# Logging function
+log() {
+  echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1"
+}
 
 
-# Run extra steps for certain mods
-/opt/configure-remotecontrol-mod.sh
 
-/opt/tail-smapi-log.sh &
+# Modify launch command
+modify_launch_command() {
+  local launcher="/data/Stardew/Stardew Valley/StardewValley"
+  
+  # Backup original file
+  cp "$launcher" "${launcher}.bak"
+  
+  # Use safer sed replacement
+  sed -i -e 's|env TERM=xterm $LAUNCHER "$@"$|env SHELL=/bin/bash TERM=xterm xterm -e "/bin/bash -c \\"$LAUNCHER \\"\\"\$@\\"\\""/|' "$launcher"
+}
 
+# Main function
+main() {
+  log "Initialization started..."
+  
+  # Run additional configuration steps for specific mods
+  /opt/configure-mods.sh
+  
+  # Start log monitoring
+  /opt/tail-smapi-log.sh &
+  
+  # Prepare to launch the game
+  export XAUTHORITY=~/.Xauthority
+  TERM=
+  
+  modify_launch_command
+  
+  log "Launching the game..."
+  bash -c "/data/Stardew/Stardew\ Valley/StardewValley"
+  
+  # Keep the container running
+  log "Game launched, keeping the process running..."
+  sleep infinity
+}
 
-# Ready to start!
-
-export XAUTHORITY=~/.Xauthority
-TERM=
-sed -i -e 's/env TERM=xterm $LAUNCHER "$@"$/env SHELL=\/bin\/bash TERM=xterm xterm  -e "\/bin\/bash -c $LAUNCHER "$@""/' /data/Stardew/Stardew\ Valley/StardewValley
-
-bash -c "/data/Stardew/Stardew\ Valley/StardewValley"
-
-sleep infinity
+# Execute main function
+main

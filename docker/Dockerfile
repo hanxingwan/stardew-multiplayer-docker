@@ -46,6 +46,7 @@ RUN if [ ! -f "/data/nexus.zip" ]; then \
     unzip /data/nexus.zip -d /data/nexus/ && \
     /bin/bash -c "SMAPI_NO_TERMINAL=true SMAPI_USE_CURRENT_SHELL=true echo -e \"2\n\n\" | /data/nexus/SMAPI\ 4.1.10\ installer/internal/linux/SMAPI.Installer --install --game-path \"/data/Stardew/Stardew Valley\"" || :
         # Add Mods & Scripts
+
 COPY ["default_mods/", "/data/default-mods/"]
 COPY scripts/ /opt/
 

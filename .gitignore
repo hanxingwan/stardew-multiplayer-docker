@@ -6,4 +6,4 @@
 
 # large files
 docker/install_packages/*
-!docker/install_packages/
+!docker/install_packages/README.md
