@@ -4,7 +4,14 @@
 
 
 
+## 新特性 ✨
+
+- **🚀 简化脚本**: 全新的`stardew-multiplayer-docker.sh`脚本，只需`start`和`stop`两个命令
+- **🔧 本地构建优化**: 支持手动下载构建文件，加速Docker镜像构建
+- **📦 预装模组**: 包含多人游戏必备模组，开箱即用
+
 ## 更新记录
+* 添加简化管理脚本，支持快速启动/停止服务
 * 更新 dockerfile 支持读取本地的文件去构建镜像（下载太慢的问题,可以手动下载好放在docker/install_packages文件下 分别为:dotnet.tar.gz, nexus.zip 和 Stardew_1.6.15.tar.gz）
 * 更新Alwayer on server 版本 （出货问题）
 * 更新chatcommands
@@ -12,21 +19,34 @@
 * 更新镜像配置挂载（现在会暴露出mods文件夹）
 
 
-## 设置
+## 快速开始
 
-### Docker-Compose
- 
+### 使用简化脚本（推荐）
+
+```bash
+git clone https://github.com/hanxingwan/stardew-multiplayer-docker
+cd stardew-multiplayer-docker
+
+# 启动服务
+./stardew-multiplayer-docker.sh start
+
+# 停止服务
+./stardew-multiplayer-docker.sh stop
 ```
-git clone https://github.com/printfuck/stardew-multiplayer-docker
 
+### 传统Docker Compose方式
+
+```bash
+git clone https://github.com/hanxingwan/stardew-multiplayer-docker
+
+# 前台运行
 docker compose up
-```
 
-### 后台运行
-```
+# 后台运行
 docker compose up -d
-如果想完全重构该镜像先使用down清除内容
-sudo docker compose down -v --rmi all
+
+# 停止服务
+docker compose down -v --rmi all
 ```
 ### Steam Download game(test)
 
@@ -58,9 +78,20 @@ sudo docker compose down -v --rmi all
 
 ## 故障排除
 
+### 脚本使用问题
+
+如果使用简化脚本遇到问题：
+```bash
+# 确保脚本有执行权限
+chmod +x stardew-multiplayer-docker.sh
+
+# 查看脚本帮助
+./stardew-multiplayer-docker.sh
+```
+
 ### 控制台中的错误消息
 
-通常，您应该能够忽略那里的任何消息。如果游戏无法启动或出现任何错误，您应该寻找类似“无法打开显示”的消息，这很可能表明权限错误。
+通常，您应该能够忽略那里的任何消息。如果游戏无法启动或出现任何错误，您应该寻找类似"无法打开显示"的消息，这很可能表明权限错误。
 
 ### VNC
 
@@ -73,4 +104,5 @@ sudo docker compose down -v --rmi all
 
 ## 感谢
  - 感谢Novex的精彩配置脚本和jlesage的天才基础镜像，现在看起来好多了
- - 感谢 printfuck 的配置文件
+ - 感谢printfuck的配置文件
+ - 感谢hanxingwan的代码修改
