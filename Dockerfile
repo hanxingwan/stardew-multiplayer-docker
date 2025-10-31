@@ -11,7 +11,11 @@ ENV STARDEW_GAME_URL="https://eris.cc/Stardew_1.6.15.tar.gz"
 ENV DOTNET_SDK_URL="https://download.visualstudio.microsoft.com/download/pr/6788a5a5-1879-4095-948d-72c7fbdf350f/c996151548ec9f24d553817db64c3577/dotnet-sdk-5.0.402-linux-x64.tar.gz"
 ENV SMAPI_URL="https://github.com/Pathoschild/SMAPI/releases/download/4.1.10/SMAPI-4.1.10-installer.zip"
 
-# replace mirrors - debian buster is archived, use aliyun debian-archive
+# 设置默认的debian archive源（确保基础构建成功）
+RUN echo "deb http://archive.debian.org/debian/ buster main contrib non-free" > /etc/apt/sources.list && \
+    echo "deb http://archive.debian.org/debian-security buster/updates main contrib non-free" >> /etc/apt/sources.list
+
+# 阿里云镜像源（可选，用于加速 - 注释掉默认使用archive.debian.org）
 #RUN echo "deb http://mirrors.aliyun.com/debian-archive/debian/ buster main contrib non-free" > /etc/apt/sources.list && \
 #    echo "deb http://mirrors.aliyun.com/debian-archive/debian-security buster/updates main contrib non-free" >> /etc/apt/sources.list
 

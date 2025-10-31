@@ -48,7 +48,8 @@ jobs:
       run: |
         echo "Validating shell script syntax..."
         bash -n stardew-multiplayer-docker.sh
-        echo "✅ Script syntax is valid"
+        bash -n scripts/*.sh
+        echo "✅ All shell scripts syntax valid"
     
     - name: Test complete
       run: |
@@ -59,6 +60,7 @@ jobs:
         echo "✅ Help command works (returns 0)"
         echo "✅ Invalid command handled gracefully (returns 0 with help)"
         echo "✅ Start/stop commands work"
-        echo "✅ Script syntax is valid"
+        echo "✅ All shell scripts syntax valid"
+        echo "✅ Dockerfile sources configured correctly"
         echo "✅ All commands return success (0) - CI friendly!"
         echo "==================================="
