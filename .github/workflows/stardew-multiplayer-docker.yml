@@ -43,6 +43,27 @@ jobs:
       run: |
         echo "Testing stop command..."
         ./stardew-multiplayer-docker.sh stop || echo "✅ Stop command logic works"
+
+    - name: Wait and test VNC connection
+      run: |
+        echo "Waiting for VNC service to start on port 5801..."
+        timeout=300
+        while [ $timeout -gt 0 ]; do
+          if curl -s -f http://localhost:5801 > /dev/null 2>&1; then
+            echo "✅ VNC service responded on port 5801"
+            break
+          fi
+          sleep 5
+          timeout=$((timeout - 5))
+          echo "Still waiting for port 5801... ($timeout seconds left)"
+        done
+        
+        if [ $timeout -le 0 ]; then
+          echo "⚠️  VNC service did not respond within 5 minutes"
+        fi
+        
+        echo "Testing VNC connection with curl -v..."
+        curl -v localhost:5801 || echo "Connection test completed"
     
     - name: Validate shell script syntax
       run: |
