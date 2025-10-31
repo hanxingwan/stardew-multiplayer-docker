@@ -22,12 +22,13 @@ jobs:
       run: |
         echo "Testing help command..."
         ./stardew-multiplayer-docker.sh
-        echo "✅ Help command works"
+        echo "✅ Help command works (returns 0 as expected)"
     
     - name: Test invalid command
       run: |
         echo "Testing invalid command..."
-        ./stardew-multiplayer-docker.sh invalid || echo "✅ Invalid command handled correctly"
+        ./stardew-multiplayer-docker.sh invalid
+        echo "✅ Invalid command handled correctly (returns help with exit code 0)"
     
     - name: Test start command (dry run)
       run: |
@@ -55,8 +56,9 @@ jobs:
         echo "🎉 All tests passed!"
         echo "==================================="
         echo "✅ Script is executable"
-        echo "✅ Help command works"
+        echo "✅ Help command works (returns 0)"
+        echo "✅ Invalid command handled gracefully (returns 0 with help)"
         echo "✅ Start/stop commands work"
-        echo "✅ Error handling works"
         echo "✅ Script syntax is valid"
+        echo "✅ All commands return success (0) - CI friendly!"
         echo "==================================="
