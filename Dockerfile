@@ -12,8 +12,8 @@ ENV DOTNET_SDK_URL="https://download.visualstudio.microsoft.com/download/pr/6788
 ENV SMAPI_URL="https://github.com/Pathoschild/SMAPI/releases/download/4.1.10/SMAPI-4.1.10-installer.zip"
 
 # replace mirrors - debian buster is archived, use aliyun debian-archive
-RUN echo "deb http://mirrors.aliyun.com/debian-archive/debian/ buster main contrib non-free" > /etc/apt/sources.list && \
-    echo "deb http://mirrors.aliyun.com/debian-archive/debian-security buster/updates main contrib non-free" >> /etc/apt/sources.list
+#RUN echo "deb http://mirrors.aliyun.com/debian-archive/debian/ buster main contrib non-free" > /etc/apt/sources.list && \
+#    echo "deb http://mirrors.aliyun.com/debian-archive/debian-security buster/updates main contrib non-free" >> /etc/apt/sources.list
 
 RUN dpkg --add-architecture i386
 RUN apt-get update
