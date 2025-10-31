@@ -38,12 +38,7 @@ jobs:
         echo 'echo "Mock: docker-compose $*"' >> docker-compose
         chmod +x docker-compose
         ./stardew-multiplayer-docker.sh start || echo "✅ Start command logic works"
-    
-    - name: Test stop command (dry run)
-      run: |
-        echo "Testing stop command..."
-        ./stardew-multiplayer-docker.sh stop || echo "✅ Stop command logic works"
-
+ 
     - name: Wait and test VNC connection
       run: |
         echo "Waiting for VNC service to start on port 5801..."
@@ -64,6 +59,11 @@ jobs:
         
         echo "Testing VNC connection with curl -v..."
         curl -v localhost:5801 || echo "Connection test completed"
+    
+    - name: Test stop command (dry run)
+      run: |
+        echo "Testing stop command..."
+        ./stardew-multiplayer-docker.sh stop || echo "✅ Stop command logic works"
     
     - name: Validate shell script syntax
       run: |
